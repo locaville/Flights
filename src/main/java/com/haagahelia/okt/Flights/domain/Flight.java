@@ -1,7 +1,15 @@
 package com.haagahelia.okt.Flights.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Flight {
 	
+	@Id
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	private long id;
 	private String flightNumber;
 	private String airline;
@@ -18,10 +26,9 @@ public class Flight {
 	}
 	
 
-	public Flight(long id, String flightNumber, String airline, String pointOfDeparture, String destination,
+	public Flight(String flightNumber, String airline, String pointOfDeparture, String destination,
 			String departureTime, String arrivalTime, String seatNumber) {
 		super();
-		this.id = id;
 		this.flightNumber = flightNumber;
 		this.airline = airline;
 		this.pointOfDeparture = pointOfDeparture;

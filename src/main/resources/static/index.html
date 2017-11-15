@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flights</title>
+</head>
+
+<body>
+	
+	<div class='container'> <!-- Start of whole page -->        
+    
+        <div id='root'></div> <!-- React table -->
+	
+	</div><!-- End of whole page -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.min.js"></script>
+    <script src="https://fb.me/react-dom-15.0.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+
+    <script type="text/babel">
+    class App extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                flights: [],
+            };
+        }
+
+        componentDidMount() {
+            this.loadFlightsFromServer();
+        }
+
+        loadFlightsFromServer() {
+            fetch('http://localhost:8080/api/flights', {
+                credentials: 'same-origin'
+            })
+            .then((response) => response.json())
+            .then((responseData) => {
+                this.setState({flights: responseData._embedded.flights});
+            });
+        }
+
+        render() {
+            return (
+                <div>
+                    <FlightTable flights={this.state.flights}/>
+                </div>
+            );
+        }
+    }
+
+    class FlightTable extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+
+        render() {
+            var flights = this.props.flights.map(
+                flight => <Flight
+                key={flight._links.self.href}
+                flight={flight}/>
+            );
+            return (
+                <div>
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Flight Number</th>
+                                <th>Airline</th>
+                                <th>Point of Departure</th>
+                                <th>Destination</th>
+                                <th>Departure Time</th>
+                                <th>Arrival Time</th>
+                                <th>Seat Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {flights}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+    }
+
+    class Flight extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+
+        render() {
+            return (
+                <tr>
+                    <td>{this.props.flight.flightNumber}</td>
+                    <td>{this.props.flight.airline}</td>
+                    <td>{this.props.flight.pointOfDeparture}</td>
+                    <td>{this.props.flight.destination}</td>
+                    <td>{this.props.flight.departureTime}</td>
+                    <td>{this.props.flight.arrivalTime}</td>
+                    <td>{this.props.flight.seatNumber}</td>
+                </tr>
+            )
+        }
+    }
+    ReactDOM.render(<App />, document.getElementById('root') );
+	</script>
+
+</body>
+</html>
