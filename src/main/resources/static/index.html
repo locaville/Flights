@@ -7,7 +7,7 @@
 
 <body>
 	
-	<div class='container'> <!-- Start of whole page -->        
+	<div class='container' style="text-align:center"> <!-- Start of whole page -->        
     
         <div id='root'></div> <!-- React table -->
 	
@@ -46,9 +46,24 @@
         render() {
             return (
                 <div>
+                    <Header/>
                     <FlightTable flights={this.state.flights}/>
                 </div>
             );
+        }
+    }
+
+    class Header extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+
+        render() {
+            return (
+                <div>
+                    <h1>Flights</h1><br/><br/>
+                </div>
+            )
         }
     }
 
@@ -65,7 +80,7 @@
             );
             return (
                 <div>
-                    <table className="table table-striped">
+                    <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Flight Number</th>
