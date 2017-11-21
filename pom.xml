@@ -6,7 +6,7 @@
 	<groupId>com.haagahelia.okt</groupId>
 	<artifactId>Flights</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>Flights</name>
 	<description>CRUD program with Spring Boot and React</description>
@@ -56,6 +56,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 <!-- 		<dependency> -->
 <!-- 			<groupId>org.springframework.security</groupId> -->

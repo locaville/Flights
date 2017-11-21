@@ -36,7 +36,7 @@
         }
 
         loadFlightsFromServer() {
-            fetch('http://localhost:8080/api/flights', {
+            fetch('proto361.haaga-helia.fi:8080/flights/api/flights', {
                 credentials: 'same-origin'
             })
             .then((response) => response.json())
@@ -54,23 +54,25 @@
         }
 
         createFlight(flight) {
-            fetch('http://localhost:8080/api/flights', {
+            fetch('proto361.haaga-helia.fi:8080/flights/api/flights', {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify(student)
+                body: JSON.stringify(flight)
             })
             .then(res => this.loadFlightsFromServer())
             .catch(err => console.error(err))
         }
 
+
         render() {
             return (
                 <div>
                     <Header/>
-                    <FlightTable flights={this.state.flights}/>
+                    <FlightForm createFlight={this.createFlight}/>
+                    <FlightTable flights={this.state.flights} deleteFlight={this.deleteFlight}/>
                 </div>
             );
         }
@@ -99,6 +101,7 @@
             var flights = this.props.flights.map(
                 flight => <Flight
                 key={flight._links.self.href}
+                deleteFlight={this.props.deleteFlight}
                 flight={flight}/>
             );
             return (
@@ -110,8 +113,8 @@
                                 <th>Airline</th>
                                 <th>Point of Departure</th>
                                 <th>Destination</th>
-                                <th>Departure Time</th>
-                                <th>Arrival Time</th>
+                                <th>Departure Date</th>
+                                <th>Arrival Date</th>
                                 <th>Seat Number</th>
                             </tr>
                         </thead>
@@ -127,6 +130,12 @@
     class Flight extends React.Component {
         constructor(props) {
             super(props);
+
+            this.deleteFlight = this.deleteFlight.bind(this);
+        }
+
+        deleteFlight() {
+            this.props.deleteFlight(this.props.flight);
         }
 
         render() {
@@ -136,10 +145,12 @@
                     <td>{this.props.flight.airline}</td>
                     <td>{this.props.flight.pointOfDeparture}</td>
                     <td>{this.props.flight.destination}</td>
-                    <td>{this.props.flight.departureTime}</td>
-                    <td>{this.props.flight.arrivalTime}</td>
+                    <td>{this.props.flight.departureDate}</td>
+                    <td>{this.props.flight.arrivalDate}</td>
                     <td>{this.props.flight.seatNumber}</td>
+                    <td><button onClick={this.deleteFlight}>Delete</button></td>
                 </tr>
+                
             )
         }
     }
@@ -147,7 +158,7 @@
     class FlightForm extends React.Component {
         constructor(props) {
             super(props);
-            this.state = {flightNumber: '', airline: '', pointOfDeparture: '', destination: '', departureTime: '', arrivalTime: '', seatNumber: ''};
+            this.state = {flightNumber: '', airline: '', pointOfDeparture: '', destination: '', departureDate: '', arrivalDate: '', seatNumber: ''};
             this.handleChange = this.handleChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
         }
@@ -160,21 +171,30 @@
 
         handleSubmit(event) {
             event.preventDefault();
-            var newFlight = {flightNumber: this.state.flightNumber, airline: this.state.airline, pointOfDeparture: this.state.pointOfDeparture, destination: this.state.destination, departureTime: this.state.departureTime, arrivalTime: this.state.arrivalTime, seatNumber: this.state.seatNumber};
+            var newFlight = {flightNumber: this.state.flightNumber, airline: this.state.airline, pointOfDeparture: this.state.pointOfDeparture, destination: this.state.destination, departureDate: this.state.departureDate, arrivalDate: this.state.arrivalDate, seatNumber: this.state.seatNumber};
             this.props.createFlight(newFlight);
-            this.setState({flightNumber: '', airline: '', pointOfDeparture: '', destination: '', departureTime: '', arrivalTime: '', seatNumber: ''})
+            this.setState({flightNumber: '', airline: '', pointOfDeparture: '', destination: '', departureDate: '', arrivalDate: '', seatNumber: ''})
         }
 
         render() {
             return(
                 <div>
                     <h1>Add Flight</h1>
-                        <form>
-                        </form>
+                    <form>
+                            <label for="flightNumber">Flight Number: <input type="text" value={this.state.flightNumber} name="flightNumber" onChange={this.handleChange}/></label><br/>    
+                            <label for="airline">Airline: <input type="text" value={this.state.airline} name="airline" onChange={this.handleChange}/></label><br/>
+                            <label for="pointOfDeparture">Point of Departure: <input type="text" value={this.state.pointOfDeparture} name="pointOfDeparture" onChange={this.handleChange}/></label><br/>
+                            <label for="destination">Destination: <input type="text" value={this.state.destination} name="destination" onChange={this.handleChange}/></label><br/>
+                            <label for="departureDate">Departure Date: <input type="text" value={this.state.departureDate} name="departureDate" onChange={this.handleChange}/></label><br/>
+                            <label for="arrivalDate">Arrival Date: <input type="text" value={this.state.arrivalDate} name="arrivalDate" onChange={this.handleChange}/></label><br/>
+                            <label for="seatNumber">Seat Number: <input type="text" value={this.state.seatNumber} name="seatNumber" onChange={this.handleChange}/></label><br/>
+                            <label><button onClick={this.handleSubmit}>Add</button></label><br/><br/>
+                    </form>
                 </div>
             );
         }
     }
+
     ReactDOM.render(<App />, document.getElementById('root') );
 	</script>
 

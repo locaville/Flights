@@ -27,9 +27,9 @@ public class FlightsApplication {
 			@Override
 			public void run(String... arg0) throws Exception {
 				log.info("flights:");
-				repo.save(new Flight("A1234", "Finnair", "Helsinki", "Stockholm", "11:40 21.11.2017", "11:45 21.11.2017", "21B"));
-				repo.save(new Flight("A2345", "SAS", "Oslo", "Riga", "13:50 21.11.2017", "16:55 21.11.2017", "4A"));
-				repo.save(new Flight("A3456", "Lufthansa", "Frankfurt", "London", "08:20 10.12.2017", "08:50 10.12.2017", "14F"));
+				repo.save(new Flight("A1234", "Finnair", "Helsinki", "Stockholm", "21.11.2017", "21.11.2017", "21B"));
+				repo.save(new Flight("A2345", "SAS", "Oslo", "Riga", "21.11.2017", "21.11.2017", "4A"));
+				repo.save(new Flight("A3456", "Lufthansa", "Frankfurt", "London", "10.12.2017", "10.12.2017", "14F"));
 			}
 			
 		};

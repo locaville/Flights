@@ -15,26 +15,25 @@ public class Flight {
 	private String airline;
 	private String pointOfDeparture;
 	private String destination;
-	private String departureTime;
-	private String arrivalTime;
+	private String departureDate;
+	private String arrivalDate;
 	private String seatNumber;
-	
 	
 	public Flight() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 
 	public Flight(String flightNumber, String airline, String pointOfDeparture, String destination,
-			String departureTime, String arrivalTime, String seatNumber) {
+			String departureDate, String arrivalDate, String seatNumber) {
 		super();
 		this.flightNumber = flightNumber;
 		this.airline = airline;
 		this.pointOfDeparture = pointOfDeparture;
 		this.destination = destination;
-		this.departureTime = departureTime;
-		this.arrivalTime = arrivalTime;
+		this.departureDate = departureDate;
+		this.arrivalDate = arrivalDate;
 		this.seatNumber = seatNumber;
 	}
 
@@ -43,18 +42,21 @@ public class Flight {
 		return id;
 	}
 
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 
 	public String getFlightNumber() {
 		return flightNumber;
 	}
 
+
 	public void setFlightNumber(String flightNumber) {
 		this.flightNumber = flightNumber;
 	}
-	
+
 
 	public String getAirline() {
 		return airline;
@@ -70,49 +72,62 @@ public class Flight {
 		return pointOfDeparture;
 	}
 
+
 	public void setPointOfDeparture(String pointOfDeparture) {
 		this.pointOfDeparture = pointOfDeparture;
 	}
+
 
 	public String getDestination() {
 		return destination;
 	}
 
+
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
-	public String getDepartureTime() {
-		return departureTime;
+
+	public String getDepartureDate() {
+		return departureDate;
 	}
 
-	public void setDepartureTime(String departureTime) {
-		this.departureTime = departureTime;
+
+	public void setDepartureDate(String departureDate) {
+		this.departureDate = departureDate;
 	}
 
-	public String getArrivalTime() {
-		return arrivalTime;
+
+	public String getArrivalDate() {
+		return arrivalDate;
 	}
 
-	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
+
+	public void setArrivalDate(String arrivalDate) {
+		this.arrivalDate = arrivalDate;
 	}
+
 
 	public String getSeatNumber() {
 		return seatNumber;
 	}
+
 
 	public void setSeatNumber(String seatNumber) {
 		this.seatNumber = seatNumber;
 	}
 
 
-
 	@Override
 	public String toString() {
 		return "Flight [id=" + id + ", flightNumber=" + flightNumber + ", airline=" + airline + ", pointOfDeparture="
-				+ pointOfDeparture + ", destination=" + destination + ", departureTime=" + departureTime
-				+ ", arrivalTime=" + arrivalTime + ", seatNumber=" + seatNumber + "]";
+				+ pointOfDeparture + ", destination=" + destination + ", departureDate=" + departureDate
+				+ ", arrivalDate=" + arrivalDate + ", seatNumber=" + seatNumber + "]";
 	}
+	
+	
+	
+	
+	
 	
 }
