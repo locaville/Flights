@@ -36,7 +36,7 @@
         }
 
         loadFlightsFromServer() {
-            fetch('proto361.haaga-helia.fi:8080/flights/api/flights', {
+            fetch('http://proto361.haaga-helia.fi:8080/flights/api/flights/', {
                 credentials: 'same-origin'
             })
             .then((response) => response.json())
@@ -54,7 +54,7 @@
         }
 
         createFlight(flight) {
-            fetch('proto361.haaga-helia.fi:8080/flights/api/flights', {
+            fetch('http://proto361.haaga-helia.fi:8080/flights/api/flights/', {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
